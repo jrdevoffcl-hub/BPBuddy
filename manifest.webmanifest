@@ -1,0 +1,12 @@
+{
+  "name": "BPBuddy",
+  "short_name": "BPBuddy",
+  "description": "Hypertension self-management and community follow-up web application.",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#a81828",
+  "icons": [
+    {"src": "assets/bpbuddy-logo.png", "sizes": "1240x1240", "type": "image/png"}
+  ]
+}

@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#a81828">
+  <title>BHW Dashboard | BPBuddy</title>
+  <link rel="icon" href="assets/bpbuddy-logo.png">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body data-page="bhw" class="app-page">
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+
+  <header class="app-header">
+    <div class="container-fluid app-header-row">
+      <a class="brand" href="index.html">
+        <img src="assets/bpbuddy-logo.png" alt="BPBuddy logo" width="46" height="46">
+        <span><strong>BPBuddy</strong><small>BHW workspace</small></span>
+      </a>
+      <div class="app-header-actions">
+        <span class="connection-pill" id="connection-status" aria-live="polite">Checking connection…</span>
+        <div class="user-menu-wrap">
+          <button id="user-menu-button" class="user-menu-button" type="button" aria-expanded="false" aria-controls="user-menu">
+            <span class="avatar" id="header-avatar">B</span>
+            <span class="user-menu-text"><strong id="header-user-name">BHW</strong><small>Barangay health worker</small></span>
+            <span aria-hidden="true">⌄</span>
+          </button>
+          <div id="user-menu" class="user-menu" hidden>
+            <a href="#profile">Profile</a>
+            <a href="index.html">BPBuddy home</a>
+            <button id="logout-button" type="button">Log out</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main id="main-content" class="app-main">
+    <div class="app-layout app-layout-wide">
+      <aside class="app-sidebar" aria-label="BHW sections">
+        <nav>
+          <a class="active" href="#overview"><span aria-hidden="true">⌂</span> Overview</a>
+          <a href="#patients"><span aria-hidden="true">▦</span> Patients</a>
+          <a href="#followups"><span aria-hidden="true">◷</span> Follow-ups</a>
+          <a href="#referrals"><span aria-hidden="true">↗</span> Referrals</a>
+          <a href="#profile"><span aria-hidden="true">○</span> Profile</a>
+        </nav>
+        <div class="sidebar-help">
+          <strong>Clinical responsibility</strong>
+          <p>BPBuddy organizes monitoring information. Clinical decisions and medical treatment remain the responsibility of qualified health professionals.</p>
+        </div>
+      </aside>
+
+      <div class="app-content">
+        <section id="overview" class="dashboard-section" aria-labelledby="overview-title">
+          <header class="dashboard-heading">
+            <div><p class="eyebrow">BHW dashboard</p><h1 id="overview-title">Community follow-up overview</h1><p>Review synchronized patient monitoring records, upcoming follow-ups, and patients who may need attention.</p></div>
+            <a class="button button-sm" href="#patients">View patient list</a>
+          </header>
+
+          <div class="metric-grid" aria-label="BHW summary">
+            <article class="metric-card metric-highlight"><span>Registered patients</span><strong id="bhw-total">0</strong><small>patient accounts on this browser</small></article>
+            <article class="metric-card"><span>Flagged records</span><strong id="bhw-flagged">0</strong><small>based on synchronized readings</small></article>
+            <article class="metric-card"><span>Follow-ups due</span><strong id="bhw-due">0</strong><small>due within the next 7 days</small></article>
+            <article class="metric-card"><span>Synchronized today</span><strong id="bhw-synced">0</strong><small>monitoring records received today</small></article>
+          </div>
+
+          <div class="dashboard-grid two-one-grid">
+            <article class="card">
+              <div class="card-heading-row"><div><span class="card-kicker">Priority list</span><h2>Patients needing attention</h2></div><a href="#patients" class="text-link">Open patient records</a></div>
+              <div id="priority-patients" class="priority-list"></div>
+            </article>
+            <aside class="card">
+              <span class="card-kicker">Upcoming</span>
+              <h2>Next follow-ups</h2>
+              <div id="upcoming-followups" class="timeline-list"></div>
+            </aside>
+          </div>
+        </section>
+
+        <section id="patients" class="dashboard-section" aria-labelledby="patients-title">
+          <header class="section-title-row">
+            <div><p class="eyebrow">Patient management</p><h2 id="patients-title">Patient records</h2><p>Search, filter, and review patients registered in BPBuddy on this browser.</p></div>
+          </header>
+
+          <article class="card table-card">
+            <div class="filter-bar">
+              <label class="search-field"><span class="sr-only">Search patient records</span><input id="patient-search" type="search" placeholder="Search name, patient ID, or barangay…"></label>
+              <label><span class="sr-only">Filter patient status</span><select id="status-filter"><option value="all">All statuses</option><option value="flagged">Flagged</option><option value="due">Follow-up due</option><option value="low-adherence">Low medication record</option></select></label>
+              <label><span class="sr-only">Sort patient records</span><select id="sort-filter"><option value="attention">Priority first</option><option value="recent">Most recent reading</option><option value="followup">Nearest follow-up</option><option value="name">Name A–Z</option></select></label>
+            </div>
+            <div class="table-scroll">
+              <table>
+                <thead><tr><th>Patient</th><th>Latest BP</th><th>Medication</th><th>Last reading</th><th>Follow-up</th><th>Status</th><th></th></tr></thead>
+                <tbody id="patient-table-body"></tbody>
+              </table>
+            </div>
+            <div id="empty-patient-state" class="empty-state" hidden><strong>No patient records found.</strong><p>Patient accounts created on this browser will appear here. Synchronized monitoring records will be attached to the matching patient profile.</p></div>
+          </article>
+
+          <section id="patient-detail" class="detail-panel" hidden aria-labelledby="detail-title">
+            <header class="detail-header">
+              <div><p class="eyebrow">Patient record</p><h3 id="detail-title">Patient</h3></div>
+              <button id="close-detail" class="icon-button" type="button" aria-label="Close patient detail">×</button>
+            </header>
+            <div class="detail-grid">
+              <article class="card">
+                <span class="card-kicker">Profile</span><h4>Patient information</h4>
+                <dl id="patient-summary-list" class="summary-list"></dl>
+              </article>
+              <article class="card">
+                <span class="card-kicker">Latest monitoring</span><h4>Recent BP records</h4>
+                <div class="table-scroll compact-table"><table><thead><tr><th>Date</th><th>BP</th><th>Category</th><th>Medication</th></tr></thead><tbody id="patient-reading-body"></tbody></table></div>
+              </article>
+            </div>
+            <div class="detail-actions-grid">
+              <form id="followup-form" class="card form-card compact-form">
+                <span class="card-kicker">Follow-up</span><h4>Schedule and notes</h4>
+                <label>Follow-up date<input id="bhw-followup-date" type="date" required></label>
+                <label>Follow-up notes<textarea id="bhw-followup-notes" rows="4" maxlength="400" placeholder="Reason for follow-up, observations, or actions to remember."></textarea></label>
+                <div id="followup-save-message" class="form-message" role="status" aria-live="polite"></div>
+                <button class="button button-sm" type="submit">Save follow-up</button>
+              </form>
+              <form id="referral-form" class="card form-card compact-form">
+                <span class="card-kicker">Referral</span><h4>Record a referral</h4>
+                <label>Destination<select id="referral-destination" required><option value="Rural Health Unit">Rural Health Unit</option><option value="Physician / Clinic">Physician / Clinic</option><option value="Hospital">Hospital</option><option value="Other health facility">Other health facility</option></select></label>
+                <label>Reason<textarea id="referral-reason" rows="4" maxlength="400" required placeholder="Reason for referral or concern to communicate."></textarea></label>
+                <div id="referral-save-message" class="form-message" role="status" aria-live="polite"></div>
+                <button class="button button-sm button-secondary" type="submit">Record referral</button>
+              </form>
+            </div>
+            <article class="card referral-print-card">
+              <div class="card-heading-row"><div><span class="card-kicker">Referral summary</span><h4>Printable patient summary</h4></div><button id="print-referral" class="button button-sm button-ghost" type="button">Print summary</button></div>
+              <div id="referral-summary"></div>
+            </article>
+          </section>
+        </section>
+
+        <section id="followups" class="dashboard-section" aria-labelledby="followups-title">
+          <header class="section-title-row"><div><p class="eyebrow">Follow-up management</p><h2 id="followups-title">Scheduled follow-ups</h2><p>Track upcoming and overdue follow-up dates saved through patient records.</p></div></header>
+          <div id="followup-board" class="followup-board"></div>
+        </section>
+
+        <section id="referrals" class="dashboard-section" aria-labelledby="referrals-title">
+          <header class="section-title-row"><div><p class="eyebrow">Referral records</p><h2 id="referrals-title">Referral activity</h2><p>Review referrals recorded through the BHW workflow.</p></div></header>
+          <article class="card table-card">
+            <div class="table-scroll"><table><thead><tr><th>Date</th><th>Patient</th><th>Destination</th><th>Reason</th><th>Recorded by</th></tr></thead><tbody id="referral-table-body"></tbody></table></div>
+            <div id="empty-referral-state" class="empty-state" hidden><strong>No referrals recorded yet.</strong><p>Referrals created from a patient record will appear here.</p></div>
+          </article>
+        </section>
+
+        <section id="profile" class="dashboard-section" aria-labelledby="profile-title">
+          <header class="section-title-row"><div><p class="eyebrow">Account profile</p><h2 id="profile-title">Your BHW information</h2><p>Update the basic information attached to your BPBuddy account on this browser.</p></div></header>
+          <div class="dashboard-grid two-one-grid">
+            <form id="bhw-profile-form" class="card form-card compact-form">
+              <div class="form-grid two-col">
+                <label>Full name<input id="profile-name" type="text" maxlength="80" required></label>
+                <label>Email address<input id="profile-email" type="email" disabled></label>
+                <label>Contact number<input id="profile-contact" type="tel" maxlength="20" required></label>
+                <label>Barangay / assigned community<input id="profile-barangay" type="text" maxlength="80" required></label>
+                <label>BHW / staff ID<input id="profile-staff-id" type="text" maxlength="40" required></label>
+                <label>Health center / assigned area<input id="profile-center" type="text" maxlength="100" required></label>
+              </div>
+              <div id="profile-message" class="form-message" role="status" aria-live="polite"></div>
+              <button class="button button-sm" type="submit">Save profile changes</button>
+            </form>
+            <aside class="card account-summary-card">
+              <span class="avatar avatar-large" id="profile-avatar">B</span>
+              <h3 id="profile-display-name">BHW</h3>
+              <p id="profile-display-location">—</p>
+              <dl class="summary-list"><dt>Role</dt><dd>Barangay Health Worker</dd><dt>Account status</dt><dd><span class="status-dot stable">Active</span></dd><dt>Storage</dt><dd>This browser</dd></dl>
+              <button id="profile-logout" class="button button-ghost button-wide" type="button">Log out</button>
+            </aside>
+          </div>
+        </section>
+      </div>
+    </div>
+  </main>
+
+  <footer class="app-footer">
+    <p>BPBuddy organizes patient monitoring and community follow-up information. It does not replace clinical judgment or medical care.</p>
+  </footer>
+
+  <script src="js/storage.js" defer></script>
+  <script src="js/auth.js" defer></script>
+  <script src="js/common.js" defer></script>
+  <script src="js/bhw.js" defer></script>
+</body>
+</html>

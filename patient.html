@@ -1,0 +1,298 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#a81828">
+  <title>Patient Dashboard | BPBuddy</title>
+  <link rel="icon" href="assets/bpbuddy-logo.png">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="stylesheet" href="css/styles.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js" defer></script>
+</head>
+<body data-page="patient" class="app-page">
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+
+  <header class="app-header">
+    <div class="container-fluid app-header-row">
+      <a class="brand" href="index.html">
+        <img src="assets/bpbuddy-logo.png" alt="BPBuddy logo" width="46" height="46">
+        <span><strong>BPBuddy</strong><small>Patient workspace</small></span>
+      </a>
+      <div class="app-header-actions">
+        <span class="connection-pill" id="connection-status" aria-live="polite">Checking connection…</span>
+        <div class="user-menu-wrap">
+          <button id="user-menu-button" class="user-menu-button" type="button" aria-expanded="false" aria-controls="user-menu">
+            <span class="avatar" id="header-avatar">P</span>
+            <span class="user-menu-text"><strong id="header-user-name">Patient</strong><small>Patient account</small></span>
+            <span aria-hidden="true">⌄</span>
+          </button>
+          <div id="user-menu" class="user-menu" hidden>
+            <a href="#profile">Profile</a>
+            <a href="index.html">BPBuddy home</a>
+            <button id="logout-button" type="button">Log out</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main id="main-content" class="app-main">
+    <div class="app-layout app-layout-wide">
+      <aside class="app-sidebar" aria-label="Patient sections">
+        <nav>
+          <a class="active" href="#overview"><span aria-hidden="true">⌂</span> Overview</a>
+          <a href="#tracker"><span aria-hidden="true">＋</span> Add reading</a>
+          <a href="#history"><span aria-hidden="true">⌁</span> History & trends</a>
+          <a href="#reminders"><span aria-hidden="true">◷</span> Reminders & sync</a>
+          <a href="#education"><span aria-hidden="true">i</span> Education</a>
+          <a href="#profile"><span aria-hidden="true">○</span> Profile</a>
+        </nav>
+        <div class="sidebar-help">
+          <strong>Need medical help?</strong>
+          <p>BPBuddy does not provide diagnosis or emergency care. Contact a qualified health professional for medical concerns.</p>
+        </div>
+      </aside>
+
+      <div class="app-content">
+        <section id="overview" class="dashboard-section" aria-labelledby="overview-title">
+          <header class="dashboard-heading">
+            <div>
+              <p class="eyebrow">Patient dashboard</p>
+              <h1 id="overview-title">Good day, <span id="patient-first-name">Patient</span>.</h1>
+              <p>Keep your self-monitoring information organized and ready for your next follow-up.</p>
+            </div>
+            <a class="button button-sm" href="#tracker">+ Add BP reading</a>
+          </header>
+
+          <div class="metric-grid" aria-label="Patient summary">
+            <article class="metric-card metric-highlight"><span>Latest blood pressure</span><strong id="metric-latest-bp">—</strong><small id="metric-latest-category">No reading yet</small></article>
+            <article class="metric-card"><span>Readings this week</span><strong id="metric-week-logs">0</strong><small>recorded in the last 7 days</small></article>
+            <article class="metric-card"><span>Medication record</span><strong id="metric-adherence">—</strong><small>based on saved intake entries</small></article>
+            <article class="metric-card"><span>Next follow-up</span><strong id="metric-followup">—</strong><small id="metric-followup-note">No appointment scheduled</small></article>
+          </div>
+
+          <div id="latest-alert" class="alert-box" hidden></div>
+
+          <div class="dashboard-grid two-one-grid">
+            <article class="card chart-card">
+              <div class="card-heading-row"><div><span class="card-kicker">Blood pressure</span><h2>Recent trend</h2></div><a class="text-link" href="#history">View full history</a></div>
+              <div class="chart-frame chart-frame-home">
+                <canvas id="overview-chart" aria-label="Recent blood pressure trend chart"></canvas>
+                <svg id="overview-chart-fallback" class="chart-fallback" viewBox="0 0 700 260" role="img" aria-label="Recent blood pressure trend chart" hidden></svg>
+              </div>
+            </article>
+            <aside class="card next-steps-card">
+              <span class="card-kicker">Today</span>
+              <h2>Your next steps</h2>
+              <ul class="task-list">
+                <li><span id="task-reading-state" class="task-state">○</span><div><strong>Record today’s BP</strong><small id="task-reading-text">No reading recorded today.</small></div></li>
+                <li><span id="task-med-state" class="task-state">○</span><div><strong>Medication reminder</strong><small id="task-med-text">Set a daily reminder below.</small></div></li>
+                <li><span id="task-sync-state" class="task-state">○</span><div><strong>Synchronization</strong><small id="task-sync-text">No pending records.</small></div></li>
+              </ul>
+            </aside>
+          </div>
+        </section>
+
+        <section id="tracker" class="dashboard-section" aria-labelledby="tracker-title">
+          <header class="section-title-row">
+            <div><p class="eyebrow">Health tracker</p><h2 id="tracker-title">Add a self-monitoring record</h2><p>Record the measurement shown by your blood pressure monitor together with relevant self-management details.</p></div>
+            <span class="badge">Validated entry</span>
+          </header>
+
+          <form id="bp-form" class="card form-card" novalidate>
+            <fieldset>
+              <legend>Blood pressure reading</legend>
+              <div class="form-grid two-col">
+                <label>Date and time
+                  <input id="reading-date" name="date" type="datetime-local" required>
+                </label>
+                <label>Weight (kg) <span class="optional">optional</span>
+                  <input id="weight" name="weight" type="number" min="20" max="300" step="0.1" inputmode="decimal">
+                </label>
+                <label>Systolic (mmHg)
+                  <input id="systolic" name="systolic" type="number" min="60" max="260" inputmode="numeric" required aria-describedby="bp-help">
+                </label>
+                <label>Diastolic (mmHg)
+                  <input id="diastolic" name="diastolic" type="number" min="30" max="160" inputmode="numeric" required aria-describedby="bp-help">
+                </label>
+              </div>
+              <p id="bp-help" class="field-help">BPBuddy categorizes the saved reading for monitoring support. A category shown by the website is not a medical diagnosis.</p>
+            </fieldset>
+
+            <fieldset>
+              <legend>Medication, symptoms, and lifestyle</legend>
+              <div class="form-grid two-col">
+                <label class="checkbox-row form-checkbox"><input id="medication-taken" name="medicationTaken" type="checkbox"><span>I took my prescribed medicine as directed</span></label>
+                <label>Physical activity today (minutes)
+                  <input id="activity-minutes" name="activityMinutes" type="number" min="0" max="600" value="0" inputmode="numeric">
+                </label>
+                <label>Symptoms
+                  <select id="symptoms" name="symptoms">
+                    <option value="none">None reported</option>
+                    <option value="headache">Headache</option>
+                    <option value="dizziness">Dizziness</option>
+                    <option value="chest-discomfort">Chest discomfort</option>
+                    <option value="shortness-of-breath">Shortness of breath</option>
+                    <option value="other">Other</option>
+                  </select>
+                </label>
+                <label>Salt intake today
+                  <select id="salt-level" name="saltLevel">
+                    <option value="low">Low</option>
+                    <option value="moderate" selected>Moderate</option>
+                    <option value="high">High</option>
+                  </select>
+                </label>
+              </div>
+              <label>Notes <span class="optional">optional</span>
+                <textarea id="notes" name="notes" rows="3" maxlength="300" placeholder="Example: Took BP after resting for several minutes."></textarea>
+              </label>
+            </fieldset>
+
+            <div id="form-message" class="form-message" role="status" aria-live="polite"></div>
+            <div class="form-actions">
+              <button class="button" type="submit">Save reading</button>
+              <button class="button button-ghost" type="reset">Clear form</button>
+            </div>
+          </form>
+        </section>
+
+        <section id="history" class="dashboard-section" aria-labelledby="history-title">
+          <header class="section-title-row">
+            <div><p class="eyebrow">History & trends</p><h2 id="history-title">Your monitoring history</h2><p>Review saved readings and the direction of your recent systolic and diastolic values.</p></div>
+          </header>
+
+          <article class="card chart-card large-chart-card">
+            <div class="card-heading-row"><div><span class="card-kicker">Trend visualization</span><h3>Blood pressure over time</h3></div><select id="history-range" aria-label="Choose chart range"><option value="12">Last 12 readings</option><option value="30">Last 30 readings</option><option value="all">All readings</option></select></div>
+            <div class="chart-frame">
+              <canvas id="bp-chart" aria-label="Blood pressure trend chart"></canvas>
+              <svg id="bp-chart-fallback" class="chart-fallback" viewBox="0 0 700 260" role="img" aria-label="Blood pressure trend chart" hidden></svg>
+            </div>
+          </article>
+
+          <article class="card table-card">
+            <div class="card-heading-row"><div><span class="card-kicker">Saved records</span><h3>Recent entries</h3></div><button id="clear-readings" class="button button-sm button-ghost" type="button">Clear my readings</button></div>
+            <div class="table-scroll">
+              <table>
+                <thead><tr><th>Date</th><th>Blood pressure</th><th>Category</th><th>Medication</th><th>Symptoms</th><th>Activity</th></tr></thead>
+                <tbody id="reading-table-body"></tbody>
+              </table>
+            </div>
+          </article>
+        </section>
+
+        <section id="reminders" class="dashboard-section" aria-labelledby="reminders-title">
+          <header class="section-title-row">
+            <div><p class="eyebrow">Offline-first & reminders</p><h2 id="reminders-title">Keep records available even with limited connectivity</h2><p>New records are stored on this device first. Pending records can synchronize when the browser is online.</p></div>
+            <span id="queue-badge" class="badge">0 pending</span>
+          </header>
+          <div class="three-card-grid">
+            <article class="card sync-card">
+              <span class="card-icon" aria-hidden="true">↻</span>
+              <h3>Record synchronization</h3>
+              <p id="queue-message">No records waiting to synchronize.</p>
+              <button class="button button-sm" id="sync-button" type="button">Synchronize records</button>
+              <small id="last-sync-text" class="muted">No recent synchronization.</small>
+            </article>
+            <article class="card">
+              <span class="card-icon" aria-hidden="true">◷</span>
+              <h3>Medication reminder</h3>
+              <label>Daily reminder time
+                <input id="med-reminder-time" type="time" value="08:00">
+              </label>
+              <button class="button button-sm button-secondary" id="save-med-reminder" type="button">Save reminder</button>
+              <p class="muted" id="med-reminder-text"></p>
+            </article>
+            <article class="card">
+              <span class="card-icon" aria-hidden="true">▣</span>
+              <h3>Follow-up appointment</h3>
+              <label>Next follow-up date
+                <input id="followup-date" type="date">
+              </label>
+              <button class="button button-sm button-secondary" id="save-followup" type="button">Save follow-up</button>
+              <p class="muted" id="followup-reminder-text"></p>
+            </article>
+          </div>
+        </section>
+
+        <section id="education" class="dashboard-section" aria-labelledby="education-title">
+          <header class="section-title-row">
+            <div><p class="eyebrow">Education & self-care</p><h2 id="education-title">Hypertension learning center</h2><p>Review the key topics included in the BPBuddy project scope, then complete a short knowledge check.</p></div>
+            <span id="education-progress" class="badge">0/4 topics completed</span>
+          </header>
+
+          <div class="education-grid">
+            <article class="education-card card" data-topic="bp-basics">
+              <span class="education-index">01</span><h3>Blood pressure basics</h3><p>Hypertension increases the risk of serious cardiovascular complications, making consistent monitoring and proper management important.</p>
+              <button class="topic-toggle text-button" type="button" aria-expanded="false">Show key points</button>
+              <div class="topic-details" hidden><ul><li>Record readings consistently so changes can be reviewed over time.</li><li>Bring repeated high readings to a qualified health professional or your follow-up visit.</li><li>BPBuddy’s categories support monitoring and do not replace clinical diagnosis.</li></ul></div>
+              <label class="checkbox-row topic-check"><input class="topic-complete" type="checkbox"><span>Mark topic as reviewed</span></label>
+            </article>
+            <article class="education-card card" data-topic="medication">
+              <span class="education-index">02</span><h3>Medication adherence</h3><p>Long-term hypertension management depends on consistent support and access as well as taking prescribed medicines as directed.</p>
+              <button class="topic-toggle text-button" type="button" aria-expanded="false">Show key points</button>
+              <div class="topic-details" hidden><ul><li>Use BPBuddy to record whether prescribed medicine was taken.</li><li>Do not change or stop medicine based on the website alone.</li><li>Discuss concerns, side effects, or missed doses with a qualified clinician.</li></ul></div>
+              <label class="checkbox-row topic-check"><input class="topic-complete" type="checkbox"><span>Mark topic as reviewed</span></label>
+            </article>
+            <article class="education-card card" data-topic="lifestyle">
+              <span class="education-index">03</span><h3>Lifestyle self-care</h3><p>Related hypertension programs in the project literature combine monitoring with health education and lifestyle support.</p>
+              <button class="topic-toggle text-button" type="button" aria-expanded="false">Show key points</button>
+              <div class="topic-details" hidden><ul><li>Keep lifestyle notes alongside BP readings to support follow-up conversations.</li><li>Record physical activity and relevant daily habits consistently.</li><li>Use professional health guidance for individualized lifestyle recommendations.</li></ul></div>
+              <label class="checkbox-row topic-check"><input class="topic-complete" type="checkbox"><span>Mark topic as reviewed</span></label>
+            </article>
+            <article class="education-card card" data-topic="followup">
+              <span class="education-index">04</span><h3>Follow-up & seeking care</h3><p>Regular follow-up helps connect monitoring information with professional review and continuing care.</p>
+              <button class="topic-toggle text-button" type="button" aria-expanded="false">Show key points</button>
+              <div class="topic-details" hidden><ul><li>Keep scheduled follow-up dates visible and updated.</li><li>Bring recent BP and medication history to health-worker or clinic review.</li><li>For severe symptoms or urgent medical concerns, seek appropriate medical care rather than relying on BPBuddy.</li></ul></div>
+              <label class="checkbox-row topic-check"><input class="topic-complete" type="checkbox"><span>Mark topic as reviewed</span></label>
+            </article>
+          </div>
+
+          <form id="education-quiz" class="card quiz-card">
+            <div><span class="card-kicker">Knowledge check</span><h3>Quick review</h3></div>
+            <fieldset><legend>1. What is BPBuddy designed to do?</legend><label class="radio-row"><input type="radio" name="q1" value="a" required> Diagnose hypertension and prescribe medicine</label><label class="radio-row"><input type="radio" name="q1" value="b"> Organize self-monitoring information and community follow-up</label></fieldset>
+            <fieldset><legend>2. What happens to a new patient record when connectivity is unavailable?</legend><label class="radio-row"><input type="radio" name="q2" value="a" required> It is saved locally and remains pending for synchronization</label><label class="radio-row"><input type="radio" name="q2" value="b"> It is permanently discarded</label></fieldset>
+            <button class="button button-sm" type="submit">Check answers</button>
+            <div id="quiz-result" class="form-message" role="status" aria-live="polite"></div>
+          </form>
+        </section>
+
+        <section id="profile" class="dashboard-section" aria-labelledby="profile-title">
+          <header class="section-title-row"><div><p class="eyebrow">Account profile</p><h2 id="profile-title">Your patient information</h2><p>Update the basic information attached to your BPBuddy account on this browser.</p></div></header>
+          <div class="dashboard-grid two-one-grid">
+            <form id="patient-profile-form" class="card form-card compact-form">
+              <div class="form-grid two-col">
+                <label>Full name<input id="profile-name" type="text" maxlength="80" required></label>
+                <label>Email address<input id="profile-email" type="email" disabled></label>
+                <label>Contact number<input id="profile-contact" type="tel" maxlength="20" required></label>
+                <label>Barangay / community<input id="profile-barangay" type="text" maxlength="80" required></label>
+                <label>Age<input id="profile-age" type="number" min="18" max="120" required></label>
+                <label>Patient ID<input id="profile-id" type="text" disabled></label>
+              </div>
+              <div id="profile-message" class="form-message" role="status" aria-live="polite"></div>
+              <button class="button button-sm" type="submit">Save profile changes</button>
+            </form>
+            <aside class="card account-summary-card">
+              <span class="avatar avatar-large" id="profile-avatar">P</span>
+              <h3 id="profile-display-name">Patient</h3>
+              <p id="profile-display-location">—</p>
+              <dl class="summary-list"><dt>Role</dt><dd>Patient</dd><dt>Account status</dt><dd><span class="status-dot stable">Active</span></dd><dt>Storage</dt><dd>This browser</dd></dl>
+              <button id="profile-logout" class="button button-ghost button-wide" type="button">Log out</button>
+            </aside>
+          </div>
+        </section>
+      </div>
+    </div>
+  </main>
+
+  <footer class="app-footer">
+    <p>BPBuddy supports monitoring and follow-up organization. It is not a diagnostic, prescribing, or emergency medical service.</p>
+  </footer>
+
+  <script src="js/storage.js" defer></script>
+  <script src="js/auth.js" defer></script>
+  <script src="js/common.js" defer></script>
+  <script src="js/patient.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,295 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="BPBuddy is a web-based hypertension self-management and barangay health worker follow-up platform for Filipino patients.">
+  <meta name="theme-color" content="#a81828">
+  <title>BPBuddy | Hypertension Self-Management & Community Follow-Up</title>
+  <link rel="icon" href="assets/bpbuddy-logo.png">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body data-page="landing">
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+
+  <header class="site-header" id="top">
+    <div class="container nav-wrap">
+      <a class="brand" href="index.html" aria-label="BPBuddy home">
+        <img src="assets/bpbuddy-logo.png" alt="BPBuddy heart and blood-pressure gauge logo" width="52" height="52">
+        <span><strong>BPBuddy</strong><small>Hypertension self-management & follow-up</small></span>
+      </a>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="primary-nav">Menu</button>
+      <nav id="primary-nav" class="primary-nav" aria-label="Primary navigation">
+        <a href="#about-hypertension">Hypertension</a>
+        <a href="#features">Features</a>
+        <a href="#how-it-works">How it works</a>
+        <a href="#evidence">Why BPBuddy</a>
+        <a href="#faq">FAQ</a>
+        <a class="nav-login" href="login.html">Log in</a>
+        <a class="button button-sm" href="signup.html">Create account</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main-content">
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <p class="eyebrow">Health & Wellness Innovation</p>
+          <h1 id="hero-title">Know your numbers. Stay connected to follow-up care.</h1>
+          <p class="hero-lead">BPBuddy helps patients organize blood pressure readings, medication intake, symptoms, lifestyle notes, reminders, and health education while giving barangay health workers a clearer view of follow-up needs and referrals.</p>
+          <div class="hero-actions">
+            <a class="button" href="signup.html?role=patient">I’m a patient</a>
+            <a class="button button-secondary" href="signup.html?role=bhw">I’m a BHW</a>
+          </div>
+          <ul class="hero-points" aria-label="BPBuddy highlights">
+            <li>Responsive on phones and computers</li>
+            <li>Offline-first patient data entry</li>
+            <li>Patient and BHW role-based access</li>
+          </ul>
+        </div>
+
+        <aside class="hero-product" aria-label="BPBuddy dashboard preview">
+          <div class="preview-topbar">
+            <div class="preview-brand">
+              <img src="assets/bpbuddy-logo.png" alt="" width="42" height="42">
+              <span><strong>BPBuddy</strong><small>Patient overview</small></span>
+            </div>
+            <span class="status-dot stable">Online</span>
+          </div>
+          <div class="preview-grid">
+            <article class="preview-card preview-card-accent">
+              <span>Latest BP</span>
+              <strong>128/78</strong>
+              <small>Recent reading</small>
+            </article>
+            <article class="preview-card">
+              <span>Medication</span>
+              <strong>75%</strong>
+              <small>Recorded intake</small>
+            </article>
+            <article class="preview-card">
+              <span>Follow-up</span>
+              <strong>Nov 12</strong>
+              <small>Upcoming visit</small>
+            </article>
+          </div>
+          <div class="preview-chart" aria-hidden="true">
+            <span class="chart-label">BP trend</span>
+            <svg viewBox="0 0 500 170" role="img" aria-label="Decorative blood pressure trend preview">
+              <line x1="28" x2="472" y1="135" y2="135" />
+              <line x1="28" x2="472" y1="88" y2="88" />
+              <line x1="28" x2="472" y1="42" y2="42" />
+              <polyline class="line-sys" points="35,56 120,65 205,78 290,70 375,86 460,91" />
+              <polyline class="line-dia" points="35,100 120,104 205,110 290,105 375,116 460,119" />
+            </svg>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="quick-evidence" aria-label="Hypertension context in the Philippines">
+      <div class="container stat-strip">
+        <article><strong>16.8M</strong><span>Filipino adults estimated to have hypertension</span></article>
+        <article><strong>1 in 3</strong><span>approximate share of Filipino adults affected</span></article>
+        <article><strong>48%</strong><span>received follow-up after diagnosis in one low-income Philippine study</span></article>
+        <article><strong>22%</strong><span>had controlled BP in that study population</span></article>
+      </div>
+    </section>
+
+    <section class="section" id="about-hypertension" aria-labelledby="hypertension-title">
+      <div class="container split-grid hypertension-grid">
+        <article>
+          <p class="eyebrow">Understanding hypertension</p>
+          <h2 id="hypertension-title">Why blood pressure management needs consistent follow-up</h2>
+          <p>Hypertension is a major health concern in the Philippines. It increases the risk of heart attack, stroke, and premature death, which makes regular blood pressure monitoring and proper management important.</p>
+          <p>Patients may need to record their readings, take prescribed medicines consistently, attend scheduled check-ups, and keep track of symptoms and lifestyle habits. In rural and underserved communities, these tasks can become harder when records are paper-based, follow-ups are irregular, or internet access is limited.</p>
+          <div class="inline-note">
+            <strong>BPBuddy supports organization and follow-up.</strong>
+            <span>It does not diagnose hypertension, prescribe medicine, or replace a physician or other health professional.</span>
+          </div>
+        </article>
+        <aside class="info-panel" aria-label="Hypertension management areas">
+          <h3>Key areas BPBuddy helps organize</h3>
+          <ul class="icon-list">
+            <li><span aria-hidden="true">01</span><div><strong>Blood pressure monitoring</strong><small>Keep dated systolic and diastolic readings in one place.</small></div></li>
+            <li><span aria-hidden="true">02</span><div><strong>Medication tracking</strong><small>Record whether prescribed medicine was taken.</small></div></li>
+            <li><span aria-hidden="true">03</span><div><strong>Follow-up schedules</strong><small>Keep upcoming community or clinic follow-ups visible.</small></div></li>
+            <li><span aria-hidden="true">04</span><div><strong>Referral continuity</strong><small>Carry a structured summary of recent monitoring information.</small></div></li>
+          </ul>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section section-soft" id="features" aria-labelledby="features-title">
+      <div class="container">
+        <header class="section-heading center-heading">
+          <p class="eyebrow">Four core features</p>
+          <h2 id="features-title">Built around patient self-management and BHW follow-up</h2>
+          <p>Each feature produces observable behavior and directly supports the BPBuddy project requirements.</p>
+        </header>
+        <div class="feature-grid">
+          <article class="feature-card">
+            <span class="feature-icon" aria-hidden="true">♥</span>
+            <span class="feature-number">01</span>
+            <h3>Patient health tracker</h3>
+            <p>Patients record BP, medication intake, symptoms, weight, activity, and lifestyle notes. Entries are validated, categorized, stored locally, and shown in a history view.</p>
+            <a href="signup.html?role=patient">Create patient account →</a>
+          </article>
+          <article class="feature-card">
+            <span class="feature-icon" aria-hidden="true">▦</span>
+            <span class="feature-number">02</span>
+            <h3>BHW dashboard & follow-up</h3>
+            <p>BHWs can search patient records, filter those needing attention, view synchronized BP history, schedule follow-ups, record notes, and create referral summaries.</p>
+            <a href="signup.html?role=bhw">Create BHW account →</a>
+          </article>
+          <article class="feature-card">
+            <span class="feature-icon" aria-hidden="true">↻</span>
+            <span class="feature-number">03</span>
+            <h3>Offline-first records & reminders</h3>
+            <p>Patient entries are saved locally first. Pending records stay queued when the device is offline and synchronize when connectivity returns. Medication and appointment reminders stay available locally.</p>
+            <a href="#how-it-works">See the workflow →</a>
+          </article>
+          <article class="feature-card">
+            <span class="feature-icon" aria-hidden="true">i</span>
+            <span class="feature-number">04</span>
+            <h3>Hypertension education & self-care</h3>
+            <p>Patients can review concise educational topics about blood pressure, medication adherence, healthy habits, and when to seek professional care, with a short knowledge check.</p>
+            <a href="#about-hypertension">Learn about hypertension →</a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="how-it-works" aria-labelledby="workflow-title">
+      <div class="container">
+        <header class="section-heading">
+          <p class="eyebrow">How BPBuddy works</p>
+          <h2 id="workflow-title">One connected workflow for two user roles</h2>
+        </header>
+        <ol class="workflow-cards">
+          <li><span>1</span><div><strong>Create an account</strong><p>Register as a patient or barangay health worker. Each role gets a dashboard designed for its responsibilities.</p></div></li>
+          <li><span>2</span><div><strong>Record and review</strong><p>Patients add self-monitoring information. BPBuddy validates the form, keeps records organized, and shows BP trends.</p></div></li>
+          <li><span>3</span><div><strong>Synchronize records</strong><p>Entries are saved locally first. Queued records become available in the BHW view after synchronization.</p></div></li>
+          <li><span>4</span><div><strong>Coordinate follow-up</strong><p>BHWs identify patients needing attention, save follow-up dates, add notes, and prepare structured referral summaries.</p></div></li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="section section-dark" id="evidence" aria-labelledby="evidence-title">
+      <div class="container evidence-grid">
+        <article>
+          <p class="eyebrow">Why BPBuddy</p>
+          <h2 id="evidence-title">Designed around documented gaps in hypertension management</h2>
+          <p>The project documentation identifies four connected challenges worth addressing: irregular BP monitoring, weak follow-up, fragmented referral information, and limited connectivity in rural or underserved settings.</p>
+          <p>BPBuddy combines patient self-monitoring and community follow-up within one web-based workflow so information can be organized around the same patient record.</p>
+        </article>
+        <aside class="evidence-list" aria-label="Evidence basis">
+          <article><strong>National context</strong><p>WHO reports approximately 16.8 million Filipino adults with hypertension, or about one in three.</p></article>
+          <article><strong>Follow-up gap</strong><p>A Philippine low-income study reported that only 48% received a follow-up visit after diagnosis and 17% discontinued treatment at some point.</p></article>
+          <article><strong>Digital opportunity</strong><p>Related studies in the project literature found that web-based, mobile, telehealth, and community health worker interventions can support monitoring, adherence, and linkage to care.</p></article>
+          <p class="source-note">Evidence summary follows the BPBuddy project documentation, including WHO Western Pacific (2025) [1] and the cited Philippine hypertension-control study [2].</p>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="roles-title">
+      <div class="container">
+        <header class="section-heading center-heading">
+          <p class="eyebrow">Choose your BPBuddy workspace</p>
+          <h2 id="roles-title">A focused experience for patients and BHWs</h2>
+        </header>
+        <div class="role-grid">
+          <article class="role-card patient-role">
+            <div class="role-top"><span>Patient</span><strong>Self-management</strong></div>
+            <ul class="check-list">
+              <li>Record BP and self-management details</li>
+              <li>Review history and trend charts</li>
+              <li>Manage medication and follow-up reminders</li>
+              <li>Read hypertension education topics</li>
+            </ul>
+            <a class="button" href="signup.html?role=patient">Create patient account</a>
+            <a class="text-link" href="login.html?role=patient">Already registered? Log in</a>
+          </article>
+          <article class="role-card bhw-role">
+            <div class="role-top"><span>Barangay Health Worker</span><strong>Community follow-up</strong></div>
+            <ul class="check-list">
+              <li>Search and filter patient records</li>
+              <li>Review synchronized monitoring history</li>
+              <li>Schedule follow-ups and add notes</li>
+              <li>Record and print referral summaries</li>
+            </ul>
+            <a class="button button-secondary" href="signup.html?role=bhw">Create BHW account</a>
+            <a class="text-link" href="login.html?role=bhw">Already registered? Log in</a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-soft" id="faq" aria-labelledby="faq-title">
+      <div class="container faq-wrap">
+        <header class="section-heading">
+          <p class="eyebrow">Frequently asked questions</p>
+          <h2 id="faq-title">Before you use BPBuddy</h2>
+        </header>
+        <div class="faq-list">
+          <details><summary>Does BPBuddy diagnose hypertension?</summary><p>No. BPBuddy organizes self-monitoring information and provides educational warnings. Diagnosis and treatment decisions belong to qualified health professionals.</p></details>
+          <details><summary>Can I enter a reading without internet?</summary><p>Yes. Patient entries are stored on the device first. If the browser is offline, the record remains queued and can synchronize when connectivity becomes available.</p></details>
+          <details><summary>What can a BHW see?</summary><p>A BHW account can view patient profiles and records that have been synchronized in this browser-based implementation, then organize follow-ups, notes, and referrals.</p></details>
+          <details><summary>Is BPBuddy for other diseases?</summary><p>No. The current project scope is limited to hypertension self-monitoring and community follow-up.</p></details>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta-section" aria-labelledby="cta-title">
+      <div class="container cta-panel">
+        <div>
+          <p class="eyebrow">Start using BPBuddy</p>
+          <h2 id="cta-title">Create the workspace that matches your role.</h2>
+          <p>Use the patient dashboard for self-monitoring or the BHW dashboard for community follow-up and referral organization.</p>
+        </div>
+        <div class="hero-actions">
+          <a class="button button-light" href="signup.html">Create account</a>
+          <a class="button button-outline-light" href="login.html">Log in</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-main">
+      <div class="footer-about">
+        <a class="brand footer-brand" href="index.html">
+          <img src="assets/bpbuddy-logo.png" alt="" width="46" height="46">
+          <span><strong>BPBuddy</strong><small>Hypertension self-management & community follow-up</small></span>
+        </a>
+        <p>A web-based Health & Wellness Innovation project focused on Filipino patients with hypertension and barangay health workers.</p>
+      </div>
+      <nav class="footer-links" aria-label="Footer navigation">
+        <strong>Explore</strong>
+        <a href="#about-hypertension">Hypertension</a>
+        <a href="#features">Features</a>
+        <a href="#how-it-works">How it works</a>
+        <a href="#faq">FAQ</a>
+      </nav>
+      <nav class="footer-links" aria-label="Account navigation">
+        <strong>Account</strong>
+        <a href="login.html">Log in</a>
+        <a href="signup.html?role=patient">Patient sign-up</a>
+        <a href="signup.html?role=bhw">BHW sign-up</a>
+      </nav>
+      <div class="footer-links">
+        <strong>Important</strong>
+        <p>BPBuddy is not a diagnostic, prescribing, emergency-dispatch, or teleconsultation service.</p>
+      </div>
+    </div>
+    <div class="container footer-bottom">
+      <span>BPBuddy • Health & Wellness Innovation</span>
+      <a href="#top">Back to top ↑</a>
+    </div>
+  </footer>
+
+  <script src="js/common.js" defer></script>
+</body>
+</html>
