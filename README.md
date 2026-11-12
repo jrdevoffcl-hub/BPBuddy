@@ -58,22 +58,6 @@ Because the approved course scope is frontend-focused, this implementation store
 
 Use a local web server so the service worker and browser APIs operate correctly.
 
-### Python
-
-```bash
-cd BPBuddy-System-Full
-python -m http.server 8000
-```
-
-Open:
-
-`http://localhost:8000`
-
-### XAMPP
-
-You may also place the `BPBuddy-System-Full` folder inside XAMPP's `htdocs` folder and open it through `http://localhost/BPBuddy-System-Full/`.
-
-PHP and MySQL are not required for this build.
 
 ## Suggested evaluation flow
 
