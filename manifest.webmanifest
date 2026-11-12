@@ -1,12 +1,26 @@
 {
-  "name": "BPBuddy",
+  "name": "BPBuddy — Hypertension Self-Management & Community Follow-Up",
   "short_name": "BPBuddy",
-  "description": "Hypertension self-management and community follow-up web application.",
+  "description": "A web-based hypertension self-management and barangay health worker follow-up platform for Filipino patients.",
   "start_url": "./index.html",
+  "scope": "./",
   "display": "standalone",
+  "orientation": "portrait-primary",
   "background_color": "#ffffff",
   "theme_color": "#a81828",
+  "lang": "en",
   "icons": [
-    {"src": "assets/bpbuddy-logo.png", "sizes": "1240x1240", "type": "image/png"}
+    {
+      "src": "assets/bpbuddy-logo.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "assets/bpbuddy-logo.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
   ]
 }
